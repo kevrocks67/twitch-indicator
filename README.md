@@ -4,6 +4,7 @@
 
 Twitch.tv indicator for Linux. Tracks your followed channels and notifies when they go live.
 
+This fork starts stream in MPV instead of your web browser
 ## Installation
 
 ### Arch Linux

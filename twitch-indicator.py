@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
+import gi
+import json
+import os
 import threading
 import webbrowser
-import json
-from urllib.request import urlopen
-import gi
 
 gi.require_version('AppIndicator3', '0.1')
 gi.require_version('Notify', '0.7')
@@ -12,6 +12,11 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import AppIndicator3 as appindicator  # noqa: E402
 from gi.repository import GLib, Gio, Notify, GdkPixbuf  # noqa: E402
 from gi.repository import Gtk as gtk  # noqa: E402
+
+from urllib.request import urlopen
+from subprocess import Popen
+
+devnull = open(os.devnull, 'wb')
 
 TWITCH_BASE_URL = 'https://www.twitch.tv/'
 TWITCH_API_URL = 'https://api.twitch.tv/kraken/'
@@ -154,7 +159,10 @@ class Indicator():
 
     def open_link(self, widget, url):
         """Opens link in a default browser."""
-        webbrowser.open_new_tab(url)
+        #webbrowser.open_new_tab(url)
+        Popen(['nohup', '/usr/bin/mpv', '--no-terminal', url,\
+               '</dev/null', '>/dev/null', '2>&1', '&'],\
+               stdout=devnull, stderr=devnull)
 
     def refresh_streams_init(self, widget, button_activate=False):
         """Initializes thread for stream refreshing."""
