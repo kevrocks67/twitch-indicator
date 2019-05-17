@@ -161,7 +161,7 @@ class Indicator():
         """Opens link in a default browser."""
         #webbrowser.open_new_tab(url)
         Popen(['nohup', '/usr/bin/mpv', '--no-terminal', url,\
-               '</dev/null', '>/dev/null', '2>&1', '&'],\
+               '2>&1','>/dev/null' '&'],\
                stdout=devnull, stderr=devnull)
 
     def refresh_streams_init(self, widget, button_activate=False):
